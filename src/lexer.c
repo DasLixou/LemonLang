@@ -10,3 +10,81 @@ lexer_T *init_lexer(char *src)
 
     return lexer;
 }
+
+void lexer_advance(lexer_T *lexer)
+{
+    if (lexer->i < lexer->src_size && lexer->c != '\0')
+    {
+        lexer->i += 1;
+        lexer->c = lexer->src[lexer->i];
+    }
+}
+
+token_T *lexer_next_token(lexer_T *lexer)
+{
+    while (lexer->c != '\0')
+    {
+        lexer_skip_whitespace(lexer);
+
+        if (isalpha(lexer->c))
+        {
+            return lexer_advance_current(lexer, TOKEN_ID);
+            // return lexer_parse_id(lexer);
+        }
+
+        if (isdigit(lexer->c))
+        {
+            return lexer_advance_current(lexer, TOKEN_INT);
+            // return lexer_parse_number(lexer);
+        }
+
+        switch (lexer->c)
+        {
+        case '=':
+            return lexer_advance_current(lexer, TOKEN_EQUALS);
+        case '(':
+            return lexer_advance_current(lexer, TOKEN_LPAREN);
+        case ')':
+            return lexer_advance_current(lexer, TOKEN_RPAREN);
+        case '{':
+            return lexer_advance_current(lexer, TOKEN_LBRACE);
+        case '}':
+            return lexer_advance_current(lexer, TOKEN_RBRACE);
+        case ',':
+            return lexer_advance_current(lexer, TOKEN_COMMA);
+        case ';':
+            return lexer_advance_current(lexer, TOKEN_SEMICOLON);
+        case '\0':
+            break;
+        default:
+        {
+            printf("[Lexer]: Unexpected character `%c`\n", lexer->c);
+            lexer_advance(lexer);
+        }
+        }
+    }
+
+    return init_token(0, TOKEN_EOF);
+}
+
+// Helper methods //
+
+void lexer_skip_whitespace(lexer_T *lexer)
+{
+    while (lexer->c == 13 || lexer->c == 10 || lexer->c == ' ' || lexer->c == '\t')
+    {
+        lexer_advance(lexer);
+    }
+}
+
+token_T *lexer_advance_current(lexer_T *lexer, int type)
+{
+    char *value = calloc(2, sizeof(char));
+    value[0] = lexer->c;
+    value[1] = '\0';
+
+    token_T *token = init_token(value, type);
+    lexer_advance(lexer);
+
+    return token;
+}
