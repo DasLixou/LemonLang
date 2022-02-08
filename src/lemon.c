@@ -8,7 +8,7 @@ int main()
     printf("[lemonc] Start compiling...\n");
     lexer_T *lexer = init_lexer("i = 1;");
     token_T *token = lexer_next_token(lexer);
-    while (token != TOKEN_EOF)
+    while (token->type != TOKEN_EOF)
     {
         printf("%s\n", token_to_str(token));
         token = lexer_next_token(lexer);
