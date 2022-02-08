@@ -10,4 +10,6 @@ typedef struct PARSER_STRUCT
 
 parser_T *init_parser(lexer_T *lexer);
 
+void parser_parse(parser_T *parser);
+
 #endif // LEMON_PARSER_H
