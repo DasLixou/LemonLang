@@ -28,14 +28,12 @@ token_T *lexer_next_token(lexer_T *lexer)
 
         if (isalpha(lexer->c))
         {
-            return lexer_advance_current(lexer, TOKEN_ID);
-            // return lexer_parse_id(lexer);
+            return lexer_parse_id(lexer);
         }
 
         if (isdigit(lexer->c))
         {
-            return lexer_advance_current(lexer, TOKEN_INT);
-            // return lexer_parse_number(lexer);
+            return lexer_parse_number(lexer);
         }
 
         switch (lexer->c)
@@ -65,6 +63,35 @@ token_T *lexer_next_token(lexer_T *lexer)
     }
 
     return init_token(0, TOKEN_EOF);
+}
+
+// Custom Lexer Parts //
+
+token_T *lexer_parse_id(lexer_T *lexer)
+{
+    char *value = calloc(1, sizeof(char));
+    while (isalpha(lexer->c))
+    {
+        value = realloc(value, (strlen(value) + 2) * sizeof(char));
+        strcat(value, (char[]){lexer->c, 0});
+        lexer_advance(lexer);
+    }
+
+    return init_token(value, TOKEN_ID);
+}
+
+token_T *lexer_parse_number(lexer_T *lexer)
+{
+    char *value = calloc(1, sizeof(char));
+
+    while (isdigit(lexer->c))
+    {
+        value = realloc(value, (strlen(value) + 2) * sizeof(char));
+        strcat(value, (char[]){lexer->c, 0});
+        lexer_advance(lexer);
+    }
+
+    return init_token(value, TOKEN_INT);
 }
 
 // Helper methods //

@@ -20,6 +20,10 @@ lexer_T *init_lexer(char *src);
 void lexer_advance(lexer_T *lexer);
 token_T *lexer_next_token(lexer_T *lexer);
 
+// Custom Lexer Parts //
+token_T *lexer_parse_id(lexer_T *lexer);
+token_T *lexer_parse_number(lexer_T *lexer);
+
 // Helper methods //
 void lexer_skip_whitespace(lexer_T *lexer);
 token_T *lexer_advance_current(lexer_T *lexer, int type);
