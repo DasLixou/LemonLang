@@ -11,7 +11,10 @@ char *io_read_file(const char *filename)
 
     textfile = fopen(filename, "r");
     if (textfile == NULL)
-        return (char *)-1;
+    {
+        printf("Could not open file `%s` for reading.", filename);
+        return "";
+    }
 
     fseek(textfile, 0L, SEEK_END);
     numbytes = ftell(textfile);
@@ -19,7 +22,10 @@ char *io_read_file(const char *filename)
 
     text = (char *)calloc(numbytes, sizeof(char));
     if (text == NULL)
-        return (char *)-1;
+    {
+        printf("Could not open file `%s` for reading.", filename);
+        return "";
+    }
 
     fread(text, sizeof(char), numbytes, textfile);
     fclose(textfile);
@@ -34,7 +40,7 @@ void io_write_file(const char *filename, char *outbuffer)
     if (file == NULL)
     {
         printf("Could not open file `%s` for writing.", filename);
-        exit(1);
+        return;
     }
 
     fputs(outbuffer, file);
