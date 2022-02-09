@@ -43,9 +43,7 @@ AST_T *parse_instruction(parser_T *parser)
         parser_eat(parser, TOKEN_LPAREN);
         // TODO: Read parameters
         parser_eat(parser, TOKEN_RPAREN);
-        parser_eat(parser, TOKEN_LBRACE);
         ast->value = parse_block(parser);
-        parser_eat(parser, TOKEN_RBRACE);
     }
     else
     {
@@ -56,10 +54,16 @@ AST_T *parse_instruction(parser_T *parser)
     return ast;
 }
 
-AST_T *parse_block(parser_T *parser)
+list_T *parse_block(parser_T *parser)
 {
-    AST_T *ast = init_ast(AST_ASSIGNMENT);
-    return ast;
+    parser_eat(parser, TOKEN_LBRACE);
+    list_T *nodes = init_list(sizeof(struct AST_STRUCT *));
+    while (parser_try(parser, TOKEN_RBRACE) != 0)
+    {
+        list_push(nodes, parse_instruction(parser));
+    }
+    parser_eat(parser, TOKEN_RBRACE);
+    return nodes;
 }
 
 // Parser Utils //
