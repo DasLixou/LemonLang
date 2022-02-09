@@ -77,6 +77,10 @@ token_T *lexer_parse_id(lexer_T *lexer)
         lexer_advance(lexer);
     }
 
+    if (strcmp(value, "public") == 0)
+    {
+        return init_token(value, TOKEN_KW_PUBLIC);
+    }
     return init_token(value, TOKEN_ID);
 }
 

@@ -11,6 +11,9 @@ typedef struct TOKEN_STRUCT
     enum
     {
         TOKEN_ID,
+        // Keywords
+        TOKEN_KW_PUBLIC,
+        // Symbols
         TOKEN_EQUALS,
         TOKEN_LPAREN,
         TOKEN_RPAREN,

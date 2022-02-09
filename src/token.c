@@ -15,6 +15,8 @@ const char *token_type_to_str(int type)
     {
     case TOKEN_ID:
         return "ID";
+    case TOKEN_KW_PUBLIC:
+        return "KEYWORD_PUBLIC";
     case TOKEN_EQUALS:
         return "EQUALS";
     case TOKEN_LPAREN:

@@ -26,13 +26,19 @@ AST_T *parse_instruction(parser_T *parser)
     AST_T *ast = calloc(1, sizeof(struct AST_STRUCT));
 
     // Statement
-    if (parser_try(parser, TOKEN_ID) == 0)
+    if (parser_try(parser, TOKEN_KW_PUBLIC) == 0)
     {
+        parser_eat(parser, TOKEN_KW_PUBLIC);
         ast = init_ast(AST_ASSIGNMENT);
         ast->name = parser_eat(parser, TOKEN_ID)->value;
         parser_eat(parser, TOKEN_EQUALS);
         ast->value = parser_eat(parser, TOKEN_INT)->value;
         parser_eat(parser, TOKEN_SEMICOLON);
+    }
+    else
+    {
+        printf("[Parser]: Didn't expect token %s in parsing instruction", token_to_str(parser->token));
+        exit(1);
     }
 
     return ast;

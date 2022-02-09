@@ -1,2 +1,2 @@
-someNumber = 17;
-anotherNumber = 18;
+public someNumber = 17;
+public anotherNumber = 18;
