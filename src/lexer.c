@@ -70,6 +70,8 @@ token_T *lexer_next_token(lexer_T *lexer)
 token_T *lexer_parse_id(lexer_T *lexer)
 {
     char *value = calloc(1, sizeof(char));
+    token_T *token = NULL;
+
     while (isalpha(lexer->c))
     {
         value = realloc(value, (strlen(value) + 2) * sizeof(char));
@@ -77,15 +79,15 @@ token_T *lexer_parse_id(lexer_T *lexer)
         lexer_advance(lexer);
     }
 
-    if (strcmp(value, "public") == 0)
+    token = lexer_try_keyword(value, "public", TOKEN_KW_PUBLIC, token);
+    token = lexer_try_keyword(value, "func", TOKEN_KW_FUNC, token);
+
+    if (token == NULL)
     {
-        return init_token(value, TOKEN_KW_PUBLIC);
+        return init_token(value, TOKEN_ID);
     }
-    else if (strcmp(value, "func") == 0)
-    {
-        return init_token(value, TOKEN_KW_FUNC);
-    }
-    return init_token(value, TOKEN_ID);
+
+    return token;
 }
 
 token_T *lexer_parse_number(lexer_T *lexer)
@@ -110,6 +112,21 @@ void lexer_skip_whitespace(lexer_T *lexer)
     {
         lexer_advance(lexer);
     }
+}
+
+token_T *lexer_try_keyword(char *value, char *hope, int truthyType, token_T *skipToken)
+{
+    if (skipToken != NULL)
+    {
+        return skipToken;
+    }
+
+    if (strcmp(value, hope) == 0)
+    {
+        return init_token(value, truthyType);
+    }
+
+    return NULL;
 }
 
 token_T *lexer_advance_current(lexer_T *lexer, int type)

@@ -16,6 +16,7 @@ void parser_parse(parser_T *parser);
 
 // Parser Additions //
 AST_T *parse_instruction(parser_T *parser);
+AST_T *parse_block(parser_T *parser);
 
 // Parser Utils //
 token_T *parser_eat(parser_T *parser, int type);

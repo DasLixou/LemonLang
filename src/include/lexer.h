@@ -26,6 +26,7 @@ token_T *lexer_parse_number(lexer_T *lexer);
 
 // Helper methods //
 void lexer_skip_whitespace(lexer_T *lexer);
+token_T *lexer_try_keyword(char *value, char *hope, int truthyType, token_T *skipToken);
 token_T *lexer_advance_current(lexer_T *lexer, int type);
 
 #endif // LEMON_LEXER_H

@@ -14,7 +14,7 @@ void parser_parse(parser_T *parser)
     while (parser->token->type != TOKEN_EOF)
     {
         AST_T *ast = parse_instruction(parser);
-        printf("%d , %s , %s\n", ast->type, ast->name, ast->value);
+        printf("%d , %s , %s\n", ast->type, ast->name, (char *)ast->value);
     }
 }
 
@@ -44,7 +44,7 @@ AST_T *parse_instruction(parser_T *parser)
         // TODO: Read parameters
         parser_eat(parser, TOKEN_RPAREN);
         parser_eat(parser, TOKEN_LBRACE);
-        // TODO: Set value of AST to block content
+        ast->value = parse_block(parser);
         parser_eat(parser, TOKEN_RBRACE);
     }
     else
@@ -53,6 +53,12 @@ AST_T *parse_instruction(parser_T *parser)
         exit(1);
     }
 
+    return ast;
+}
+
+AST_T *parse_block(parser_T *parser)
+{
+    AST_T *ast = init_ast(AST_ASSIGNMENT);
     return ast;
 }
 

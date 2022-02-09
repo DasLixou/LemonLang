@@ -11,7 +11,7 @@ typedef struct AST_STRUCT
         AST_FUNCTION_DECLARATION,
     } type;
     char *name;
-    char *value;
+    void *value;
 } AST_T;
 
 AST_T *init_ast(int type);
