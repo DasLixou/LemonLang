@@ -15,7 +15,6 @@ void parser_parse(parser_T *parser)
     {
         AST_T *ast = parse_instruction(parser);
         printf("%d , %s , %s\n", ast->type, ast->name, ast->value);
-        parser_continue(parser);
     }
 }
 
