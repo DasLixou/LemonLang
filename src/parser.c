@@ -20,7 +20,7 @@ void parser_parse(parser_T *parser)
 
 // Parser Additions //
 
-// Definition instruction: (statement: (assignment | functionCall) ";") | (ifBlock)
+// Definition instruction: (statement: (assignment | functionCall) ";") | (functionDeclaration | ifBlock)
 AST_T *parse_instruction(parser_T *parser)
 {
     AST_T *ast = calloc(1, sizeof(struct AST_STRUCT));
@@ -34,6 +34,18 @@ AST_T *parse_instruction(parser_T *parser)
         parser_eat(parser, TOKEN_EQUALS);
         ast->value = parser_eat(parser, TOKEN_INT)->value;
         parser_eat(parser, TOKEN_SEMICOLON);
+    }
+    else if (parser_try(parser, TOKEN_KW_FUNC) == 0)
+    {
+        parser_eat(parser, TOKEN_KW_FUNC);
+        ast = init_ast(AST_FUNCTION_DECLARATION);
+        ast->name = parser_eat(parser, TOKEN_ID)->value;
+        parser_eat(parser, TOKEN_LPAREN);
+        // TODO: Read parameters
+        parser_eat(parser, TOKEN_RPAREN);
+        parser_eat(parser, TOKEN_LBRACE);
+        // TODO: Set value of AST to block content
+        parser_eat(parser, TOKEN_RBRACE);
     }
     else
     {

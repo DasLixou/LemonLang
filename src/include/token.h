@@ -13,6 +13,7 @@ typedef struct TOKEN_STRUCT
         TOKEN_ID,
         // Keywords
         TOKEN_KW_PUBLIC,
+        TOKEN_KW_FUNC,
         // Symbols
         TOKEN_EQUALS,
         TOKEN_LPAREN,

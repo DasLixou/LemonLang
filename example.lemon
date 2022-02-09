@@ -1,2 +1,6 @@
 public someNumber = 17;
 public anotherNumber = 18;
+
+func main() {
+
+}

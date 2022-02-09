@@ -8,6 +8,7 @@ typedef struct AST_STRUCT
     enum
     {
         AST_ASSIGNMENT,
+        AST_FUNCTION_DECLARATION,
     } type;
     char *name;
     char *value;
