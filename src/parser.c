@@ -12,10 +12,12 @@ parser_T *init_parser(lexer_T *lexer)
 AST_T *parser_parse(parser_T *parser)
 {
     AST_T *ast = init_ast(AST_NOOP);
+    list_T *nodes = init_list(sizeof(struct AST_STRUCT *));
     while (parser->token->type != TOKEN_EOF)
     {
-        list_push(ast->value, parse_instruction(parser));
+        list_push(nodes, parse_instruction(parser));
     }
+    ast->value = nodes;
     return ast;
 }
 

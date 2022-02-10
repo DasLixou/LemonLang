@@ -3,6 +3,7 @@
 #include "include/parser.h"
 #include "include/token.h"
 #include "include/io.h"
+#include "include/compiler.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,4 +18,7 @@ int main(int argc, char *argv[])
     AST_T *structure = parser_parse(parser);
     free(lexer);
     free(parser);
+    io_write_file("lemon_application.asm", compile_windows_32(structure));
+    free(structure);
+    printf("[lemonc] Finished compiling! :D\n");
 }
