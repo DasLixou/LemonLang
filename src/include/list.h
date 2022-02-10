@@ -13,4 +13,4 @@ list_T *init_list(size_t item_size);
 
 void list_push(list_T *list, void *item);
 
-#endif
+#endif // LEMON_LIST_H
