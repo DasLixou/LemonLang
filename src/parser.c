@@ -9,13 +9,14 @@ parser_T *init_parser(lexer_T *lexer)
     return parser;
 }
 
-void parser_parse(parser_T *parser)
+AST_T *parser_parse(parser_T *parser)
 {
+    AST_T *ast = init_ast(AST_NOOP);
     while (parser->token->type != TOKEN_EOF)
     {
-        AST_T *ast = parse_instruction(parser);
-        printf("%d , %s , %s\n", ast->type, ast->name, (char *)ast->value);
+        list_push(ast->value, parse_instruction(parser));
     }
+    return ast;
 }
 
 // Parser Additions //

@@ -14,5 +14,7 @@ int main(int argc, char *argv[])
     printf("[lemonc] Start compiling...\n");
     lexer_T *lexer = init_lexer(io_read_file(argv[1]));
     parser_T *parser = init_parser(lexer);
-    parser_parse(parser);
+    AST_T *structure = parser_parse(parser);
+    free(lexer);
+    free(parser);
 }

@@ -13,7 +13,7 @@ typedef struct PARSER_STRUCT
 
 parser_T *init_parser(lexer_T *lexer);
 
-void parser_parse(parser_T *parser);
+AST_T *parser_parse(parser_T *parser);
 
 // Parser Additions //
 AST_T *parse_instruction(parser_T *parser);

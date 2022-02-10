@@ -9,6 +9,7 @@ typedef struct AST_STRUCT
     {
         AST_ASSIGNMENT,
         AST_FUNCTION_DECLARATION,
+        AST_NOOP,
     } type;
     char *name;
     void *value;
