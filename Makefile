@@ -8,7 +8,7 @@ CC := gcc
 exec = lemonc.exe
 sources = $(wildcard src/*.c)
 objects = $(sources:.c=.o)
-flags = -g -Wall -lm -fPIC -std=c99
+flags = -g -Wall -lm -fPIC -std=c99 -O2
 
 $(exec): $(objects)
 	$(CC) $(objects) $(flags) -o $(exec)

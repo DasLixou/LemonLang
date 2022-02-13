@@ -7,6 +7,6 @@
 #include "AST.h"
 #include "list.h"
 
-char *compile_windows_32(AST_T *structure);
+char *compile_fasm_windows_32(AST_T *structure);
 
 #endif // LEMON_COMPILER_H

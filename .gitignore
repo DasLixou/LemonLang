@@ -1,3 +1,6 @@
 .vscode/**/*
 
 lemonc.exe
+
+lemon_application.asm
+lemon_application.exe

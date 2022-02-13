@@ -18,7 +18,12 @@ int main(int argc, char *argv[])
     AST_T *structure = parser_parse(parser);
     free(lexer);
     free(parser);
-    io_write_file("lemon_application.asm", compile_windows_32(structure));
+    char *result = compile_fasm_windows_32(structure);
     free(structure);
+    printf("japadu");
+    io_write_file("lemon_application.asm", result);
+    free(result);
     printf("[lemonc] Finished compiling! :D\n");
+
+    return 0;
 }
