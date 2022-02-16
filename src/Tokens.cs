@@ -20,6 +20,7 @@ namespace LemoncNS
         KW_FUNC,
         // Symbols
         EQUALS,
+        HASHTAG,
         LPAREN,
         RPAREN,
         LBRACE,

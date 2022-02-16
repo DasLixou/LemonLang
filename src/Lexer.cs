@@ -45,6 +45,8 @@ namespace LemoncNS
                 {
                     case '=':
                         return advanceCurrent(TokenType.EQUALS);
+                    case '#':
+                        return advanceCurrent(TokenType.HASHTAG);
                     case '(':
                         return advanceCurrent(TokenType.LPAREN);
                     case ')':
