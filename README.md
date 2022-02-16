@@ -8,7 +8,7 @@
 Programming Language created for fun - Developed by DasLixou in C#
 
 ## HelloWorld Example
-```java
+```js
 func main() {
     stdio.Console.println("Hello World!");
 }
