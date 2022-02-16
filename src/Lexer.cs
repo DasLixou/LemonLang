@@ -29,17 +29,17 @@ namespace LemoncNS
 
         public Token nextToken()
         {
-            while (currentChar != '\0')
+            while (currentIndex < srcLength && currentChar != '\0')
             {
                 trySkipWhitespace();
 
                 if (Char.IsLetter(currentChar))
                 {
-
+                    return lexID();
                 }
                 if (Char.IsDigit(currentChar))
                 {
-
+                    return lexNumber();
                 }
                 switch (currentChar)
                 {
@@ -58,14 +58,40 @@ namespace LemoncNS
                     case ';':
                         return advanceCurrent(TokenType.SEMICOLON);
                     case '\0':
-                        break;
+                        return advanceCurrent(TokenType.EOF);
                     default:
                         throw new Exception($"Invalid character '{currentChar}'");
+
                 }
             }
-
-            throw new Exception($"Invalid character '${currentChar}'");
+            return new Token("", TokenType.EOF);
         }
+
+        // Custom Lexer Parts
+
+        public Token lexID()
+        {
+            string value = "";
+            while (Char.IsLetter(currentChar))
+            {
+                value = $"{value}{currentChar}";
+                advance();
+            }
+            return new Token(value, TokenType.ID);
+        }
+
+        public Token lexNumber()
+        {
+            string value = "";
+            while (Char.IsDigit(currentChar))
+            {
+                value = $"{value}{currentChar}";
+                advance();
+            }
+            return new Token(value, TokenType.INT);
+        }
+
+        // Utils
 
         private void trySkipWhitespace()
         {

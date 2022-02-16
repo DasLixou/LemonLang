@@ -1,7 +1,10 @@
 using LemoncNS;
 
 Console.WriteLine("[lemonc] Start compiling...");
-Lexer lexer = new Lexer("=    ;");
+Lexer lexer = new Lexer("hello = 0;");
 
-Console.WriteLine("[lemonc] " + lexer.nextToken().type);
-Console.WriteLine("[lemonc] " + lexer.nextToken().type);
+Token token;
+while ((token = lexer.nextToken()).type != TokenType.EOF)
+{
+    Console.WriteLine("[lemonc] <type='" + token.type + "' value='" + token.value + "'>");
+}
