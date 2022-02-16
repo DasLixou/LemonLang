@@ -1,10 +1,7 @@
-﻿using LemoncNS;
+using LemoncNS;
 
 Console.WriteLine("[lemonc] Start compiling...");
-Lexer lexer = new Lexer("test");
+Lexer lexer = new Lexer("=    ;");
 
-Console.WriteLine("[lemonc] " + lexer.currentChar);
-while (lexer.advance())
-{
-    Console.WriteLine("[lemonc] " + lexer.currentChar);
-}
+Console.WriteLine("[lemonc] " + lexer.nextToken().type);
+Console.WriteLine("[lemonc] " + lexer.nextToken().type);
