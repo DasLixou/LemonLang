@@ -4,3 +4,6 @@ lemonc.exe
 
 lemon_application.asm
 lemon_application.exe
+
+obj/
+bin/
