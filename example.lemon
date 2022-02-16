@@ -6,5 +6,5 @@ func test() {
     
 }
 
-public someNumber = 17;
-public anotherNumber = 18;
+someNumber = 17;
+anotherNumber = 18;

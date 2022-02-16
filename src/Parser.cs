@@ -15,7 +15,7 @@ namespace LemoncNS
 
         public AST parse()
         {
-            AST ast = new AST("", new ArrayList());
+            AST ast = new AST(ASTType.NOOP, "", new ArrayList());
             while (token.type != TokenType.EOF)
             {
                 ((ArrayList)ast.value).Add(parseInstruction());
@@ -28,16 +28,30 @@ namespace LemoncNS
         // Definition instruction: (statement: (assignment | functionCall) ";") | (functionDeclaration | ifBlock)
         private AST parseInstruction()
         {
-            string name = "";
-            Object value = "";
             if (taste(TokenType.ID))
             {
-                name = eat(TokenType.ID).value;
+                string name = eat(TokenType.ID).value;
                 eat(TokenType.EQUALS);
-                value = eat(TokenType.INT).value;
+                Object value = eat(TokenType.INT).value;
                 eat(TokenType.SEMICOLON);
+                return new AST(ASTType.ASSIGNMENT, name, value);
             }
-            return new AST(name, value);
+            else if (taste(TokenType.KW_FUNC))
+            {
+                eat(TokenType.KW_FUNC);
+                string name = eat(TokenType.ID).value;
+                eat(TokenType.LPAREN);
+                // TODO: Parse Parameters
+                eat(TokenType.RPAREN);
+                eat(TokenType.LBRACE);
+                // TODO: Parse Block Statements
+                eat(TokenType.RBRACE);
+                return new AST(ASTType.FUNCTION_DECLARATION, name, (short)0);
+            }
+            else
+            {
+                throw new Exception("Instruction isn't Assignment or Function Declaration");
+            }
         }
 
         // Utils

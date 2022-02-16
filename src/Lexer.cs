@@ -77,6 +77,11 @@ namespace LemoncNS
                 value = $"{value}{currentChar}";
                 advance();
             }
+            switch (value.ToLower())
+            {
+                case "func":
+                    return new Token(value, TokenType.KW_FUNC);
+            }
             return new Token(value, TokenType.ID);
         }
 
