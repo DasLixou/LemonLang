@@ -15,7 +15,7 @@ namespace LemoncNS
 
         public AST parse()
         {
-            AST ast = new AST(new ArrayList());
+            AST ast = new AST("", new ArrayList());
             while (token.type != TokenType.EOF)
             {
                 ((ArrayList)ast.value).Add(parseInstruction());
@@ -28,8 +28,16 @@ namespace LemoncNS
         // Definition instruction: (statement: (assignment | functionCall) ";") | (functionDeclaration | ifBlock)
         private AST parseInstruction()
         {
-            eat(TokenType.ID);
-            return new AST("");
+            string name = "";
+            Object value = "";
+            if (taste(TokenType.ID))
+            {
+                name = eat(TokenType.ID).value;
+                eat(TokenType.EQUALS);
+                value = eat(TokenType.INT).value;
+                eat(TokenType.SEMICOLON);
+            }
+            return new AST(name, value);
         }
 
         // Utils
@@ -44,6 +52,15 @@ namespace LemoncNS
             Token result = this.token;
             this.token = lexer.nextToken();
             return result;
+        }
+
+        private bool taste(TokenType type)
+        {
+            if (this.token.type == type)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
