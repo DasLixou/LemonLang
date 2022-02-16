@@ -30,13 +30,13 @@ git clone ssh://git@github.com/DasLixou/LemonLang.git
 
 ### Build
 
-> Make sure that you have the DotNet SDK is installed. 
+> Make sure that you have the DotNet SDK installed. 
 
 To build the project, just open a terminal in the directory where this project is cloned. 
 Now type:
 
 ```bash
-dotnet run # runs like a script
+dotnet run <filename> # runs like a script
 # or
 dotnet build # builds the application in the bin folder
 ```
