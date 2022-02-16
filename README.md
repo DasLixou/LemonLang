@@ -9,6 +9,8 @@ Programming Language created for fun - Developed by DasLixou in C#
 
 ## HelloWorld Example
 ```js
+import lemon.std:io;
+
 func main() {
     stdio.Console.println("Hello World!");
 }
