@@ -5,7 +5,7 @@
 [ ![license-shield][] ][license]
 
 # Lemon Lang
-Fun Programming Language Developed by DasLixou in C#
+Programming Language created for fun - Developed by DasLixou in C#
 
 ## HelloWorld Example
 ```java
