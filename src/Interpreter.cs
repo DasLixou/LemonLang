@@ -22,6 +22,13 @@ namespace LemoncNS
                         interpret(ast);
                     }
                     break;
+                case ASTType.FUNCTION_CALL:
+                    if (structure.name == "print")
+                    {
+                        Token? token = ((ArrayList)structure.value)[0] as Token;
+                        Console.WriteLine(token?.value);
+                    }
+                    break;
                 default:
                     throw new Exception("Type " + structure.type + " is not supported for simulating.");
             }
