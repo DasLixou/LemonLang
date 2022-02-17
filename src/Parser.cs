@@ -41,9 +41,9 @@ namespace LemoncNS
                 }
                 else // functionCall
                 {
-                    parseList();
+                    ArrayList parameters = parseList();
                     eat(TokenType.SEMICOLON);
-                    return new AST(ASTType.FUNCTION_CALL, name, (short)0);
+                    return new AST(ASTType.FUNCTION_CALL, name, parameters);
                 }
             }
             else if (taste(TokenType.KW_FUNC)) // (functionDeclaration | ifBlock)
