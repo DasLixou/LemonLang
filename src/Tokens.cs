@@ -22,7 +22,6 @@ namespace LemoncNS
         INT,
         STRING,
         // Symbols
-        DOUBLE_QUOTES,
         EQUALS,
         HASHTAG,
         LPAREN,

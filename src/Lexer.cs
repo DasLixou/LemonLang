@@ -44,7 +44,7 @@ namespace LemoncNS
                 switch (currentChar)
                 {
                     case '"':
-                        return advanceCurrent(TokenType.DOUBLE_QUOTES);
+                        return lexString();
                     case '=':
                         return advanceCurrent(TokenType.EQUALS);
                     case '#':
@@ -89,6 +89,19 @@ namespace LemoncNS
             return new Token(value, TokenType.ID);
         }
 
+        public Token lexString()
+        {
+            string value = "";
+            eat('"');
+            while (!taste('"'))
+            {
+                value += currentChar;
+                advance();
+            }
+            eat('"');
+            return new Token(value, TokenType.STRING);
+        }
+
         public Token lexNumber()
         {
             string value = "";
@@ -101,6 +114,21 @@ namespace LemoncNS
         }
 
         // Utils
+
+        private void eat(char c)
+        {
+            if (this.currentChar != c)
+            {
+                throw new Exception("Expected character '" + c + "' but got '" + this.currentChar + "'");
+            }
+
+            advance();
+        }
+
+        private bool taste(char c)
+        {
+            return this.currentChar == c;
+        }
 
         private void trySkipWhitespace()
         {
