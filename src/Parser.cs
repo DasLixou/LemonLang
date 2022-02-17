@@ -44,14 +44,25 @@ namespace LemoncNS
                 // TODO: Parse Parameters
                 eat(TokenType.RPAREN);
                 eat(TokenType.LBRACE);
-                // TODO: Parse Block Statements
+                ArrayList value = parseBlock();
                 eat(TokenType.RBRACE);
-                return new AST(ASTType.FUNCTION_DECLARATION, name, (short)0);
+                return new AST(ASTType.FUNCTION_DECLARATION, name, value);
             }
             else
             {
                 throw new Exception("Instruction isn't Assignment or Function Declaration");
             }
+        }
+
+        private ArrayList parseBlock()
+        {
+            ArrayList instructions = new ArrayList();
+            while (taste(TokenType.RBRACE) == false)
+            {
+                instructions.Add(parseInstruction());
+            }
+            eat(TokenType.RBRACE);
+            return instructions;
         }
 
         // Utils
