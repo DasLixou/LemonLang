@@ -55,9 +55,7 @@ namespace LemoncNS
                 eat(TokenType.LPAREN);
                 // TODO: Parse Parameters
                 eat(TokenType.RPAREN);
-                eat(TokenType.LBRACE);
                 ArrayList value = parseBlock();
-                eat(TokenType.RBRACE);
                 return new AST(ASTType.FUNCTION_DECLARATION, name, value);
             }
             else
@@ -68,6 +66,7 @@ namespace LemoncNS
 
         private ArrayList parseBlock()
         {
+            eat(TokenType.LBRACE);
             ArrayList instructions = new ArrayList();
             while (taste(TokenType.RBRACE) == false)
             {
