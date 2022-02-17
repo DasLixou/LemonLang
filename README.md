@@ -38,7 +38,7 @@ To build the project, just open a terminal in the directory where this project i
 Now type:
 
 ```bash
-dotnet run <filename> # runs like a script
+dotnet run <simulate / compile> <filename> # runs like a script
 # or
 dotnet build # builds the application in the bin folder
 ```
