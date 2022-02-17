@@ -41,9 +41,7 @@ namespace LemoncNS
                 }
                 else // functionCall
                 {
-                    eat(TokenType.LPAREN);
-                    // TODO: Parse Parameters
-                    eat(TokenType.RPAREN);
+                    parseList();
                     eat(TokenType.SEMICOLON);
                     return new AST(ASTType.FUNCTION_CALL, name, (short)0);
                 }
@@ -64,6 +62,19 @@ namespace LemoncNS
             }
         }
 
+        private ArrayList parseList()
+        {
+            eat(TokenType.LPAREN);
+            ArrayList values = new ArrayList();
+            while (taste(TokenType.RPAREN) == false)
+            {
+                values.Add(eat());
+                if (taste(TokenType.RPAREN) == false) { eat(TokenType.COMMA); }
+            }
+            eat(TokenType.RPAREN);
+            return values;
+        }
+
         private ArrayList parseBlock()
         {
             eat(TokenType.LBRACE);
@@ -77,6 +88,13 @@ namespace LemoncNS
         }
 
         // Utils
+
+        private Token eat()
+        {
+            Token result = this.token;
+            this.token = lexer.nextToken();
+            return result;
+        }
 
         private Token eat(TokenType type)
         {
