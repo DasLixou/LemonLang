@@ -17,6 +17,10 @@ namespace LemoncNS
                 case ASTType.ASSIGNMENT:
                     break;
                 case ASTType.FUNCTION_DECLARATION:
+                    foreach (AST ast in ((ArrayList)structure.value))
+                    {
+                        interpret(ast);
+                    }
                     break;
                 default:
                     throw new Exception("Type " + structure.type + " is not supported for simulating.");
