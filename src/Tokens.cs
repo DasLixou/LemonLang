@@ -18,6 +18,9 @@ namespace LemoncNS
         // Keywords
         KW_PUBLIC,
         KW_FUNC,
+        // Types
+        INT,
+        STRING,
         // Symbols
         EQUALS,
         HASHTAG,
@@ -26,7 +29,6 @@ namespace LemoncNS
         LBRACE,
         RBRACE,
         COMMA,
-        INT,
         SEMICOLON,
         EOF,
     }

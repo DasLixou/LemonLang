@@ -28,25 +28,33 @@ namespace LemoncNS
         // Definition instruction: (statement: (assignment | functionCall) ";") | (functionDeclaration | ifBlock)
         private AST parseInstruction()
         {
-            if (taste(TokenType.ID))
+            if (taste(TokenType.ID)) // (statement: (assignment | functionCall) ";")
             {
                 string name = eat(TokenType.ID).value;
-                eat(TokenType.EQUALS);
-                Object value = eat(TokenType.INT).value;
-                eat(TokenType.SEMICOLON);
-                return new AST(ASTType.ASSIGNMENT, name, value);
+                if (taste(TokenType.EQUALS)) // assignment
+                {
+                    eat(TokenType.EQUALS);
+                    Object value = eat(TokenType.INT).value;
+                    eat(TokenType.SEMICOLON);
+                    return new AST(ASTType.ASSIGNMENT, name, value);
+
+                }
+                else // functionCall
+                {
+                    ArrayList parameters = parseList();
+                    eat(TokenType.SEMICOLON);
+                    return new AST(ASTType.FUNCTION_CALL, name, parameters);
+                }
             }
-            else if (taste(TokenType.KW_FUNC))
+            else if (taste(TokenType.KW_FUNC)) // (functionDeclaration | ifBlock)
             {
                 eat(TokenType.KW_FUNC);
                 string name = eat(TokenType.ID).value;
                 eat(TokenType.LPAREN);
                 // TODO: Parse Parameters
                 eat(TokenType.RPAREN);
-                eat(TokenType.LBRACE);
-                // TODO: Parse Block Statements
-                eat(TokenType.RBRACE);
-                return new AST(ASTType.FUNCTION_DECLARATION, name, (short)0);
+                ArrayList value = parseBlock();
+                return new AST(ASTType.FUNCTION_DECLARATION, name, value);
             }
             else
             {
@@ -54,7 +62,39 @@ namespace LemoncNS
             }
         }
 
+        private ArrayList parseList()
+        {
+            eat(TokenType.LPAREN);
+            ArrayList values = new ArrayList();
+            while (taste(TokenType.RPAREN) == false)
+            {
+                values.Add(eat());
+                if (taste(TokenType.RPAREN) == false) { eat(TokenType.COMMA); }
+            }
+            eat(TokenType.RPAREN);
+            return values;
+        }
+
+        private ArrayList parseBlock()
+        {
+            eat(TokenType.LBRACE);
+            ArrayList instructions = new ArrayList();
+            while (taste(TokenType.RBRACE) == false)
+            {
+                instructions.Add(parseInstruction());
+            }
+            eat(TokenType.RBRACE);
+            return instructions;
+        }
+
         // Utils
+
+        private Token eat()
+        {
+            Token result = this.token;
+            this.token = lexer.nextToken();
+            return result;
+        }
 
         private Token eat(TokenType type)
         {
