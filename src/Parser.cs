@@ -28,15 +28,27 @@ namespace LemoncNS
         // Definition instruction: (statement: (assignment | functionCall) ";") | (functionDeclaration | ifBlock)
         private AST parseInstruction()
         {
-            if (taste(TokenType.ID))
+            if (taste(TokenType.ID)) // (statement: (assignment | functionCall) ";")
             {
                 string name = eat(TokenType.ID).value;
-                eat(TokenType.EQUALS);
-                Object value = eat(TokenType.INT).value;
-                eat(TokenType.SEMICOLON);
-                return new AST(ASTType.ASSIGNMENT, name, value);
+                if (taste(TokenType.EQUALS)) // assignment
+                {
+                    eat(TokenType.EQUALS);
+                    Object value = eat(TokenType.INT).value;
+                    eat(TokenType.SEMICOLON);
+                    return new AST(ASTType.ASSIGNMENT, name, value);
+
+                }
+                else // functionCall
+                {
+                    eat(TokenType.LPAREN);
+                    // TODO: Parse Parameters
+                    eat(TokenType.RPAREN);
+                    eat(TokenType.SEMICOLON);
+                    return new AST(ASTType.FUNCTION_CALL, name, (short)0);
+                }
             }
-            else if (taste(TokenType.KW_FUNC))
+            else if (taste(TokenType.KW_FUNC)) // (functionDeclaration | ifBlock)
             {
                 eat(TokenType.KW_FUNC);
                 string name = eat(TokenType.ID).value;

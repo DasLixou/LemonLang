@@ -25,6 +25,7 @@ namespace LemoncNS
     {
         NOOP,
         ASSIGNMENT,
+        FUNCTION_CALL,
         FUNCTION_DECLARATION,
     }
 }
