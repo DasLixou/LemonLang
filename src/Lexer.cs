@@ -43,6 +43,8 @@ namespace LemoncNS
                 }
                 switch (currentChar)
                 {
+                    case '"':
+                        return advanceCurrent(TokenType.DOUBLE_QUOTES);
                     case '=':
                         return advanceCurrent(TokenType.EQUALS);
                     case '#':
