@@ -78,7 +78,7 @@ namespace LemoncNS
             string value = "";
             while (Char.IsLetter(currentChar))
             {
-                value = $"{value}{currentChar}";
+                value += currentChar;
                 advance();
             }
             switch (value.ToLower())
