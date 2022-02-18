@@ -41,9 +41,9 @@ namespace LemoncNS
                 }
                 else // functionCall
                 {
-                    ArrayList parameters = parseList();
+                    ArrayList arguments = parseArgumentList();
                     eat(TokenType.SEMICOLON);
-                    return new AST(ASTType.FUNCTION_CALL, name, parameters);
+                    return new AST(ASTType.FUNCTION_CALL, name, arguments);
                 }
             }
             else if (taste(TokenType.KW_FUNC)) // (functionDeclaration | ifBlock)
@@ -62,7 +62,7 @@ namespace LemoncNS
             }
         }
 
-        private ArrayList parseList()
+        private ArrayList parseArgumentList()
         {
             eat(TokenType.LPAREN);
             ArrayList values = new ArrayList();
