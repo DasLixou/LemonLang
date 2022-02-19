@@ -117,6 +117,11 @@ namespace LemoncNS
 
         // Utils
 
+        private char peek(int offset)
+        {
+            return src[Math.Min((int)this.currentIndex + offset, (int)srcLength)];
+        }
+
         private void eat(char c)
         {
             if (this.currentChar != c)
