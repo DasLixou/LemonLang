@@ -50,9 +50,9 @@ namespace LemoncNS
             {
                 eat(TokenType.KW_FUNC);
                 string name = eat(TokenType.ID).value;
-                parseParameterList();
+                ArrayList parameters = parseParameterList();
                 ArrayList value = parseBlock();
-                return new AST(ASTType.FUNCTION_DECLARATION, name, value);
+                return new AST(ASTType.FUNCTION_DECLARATION, name, parameters, value);
             }
             else
             {

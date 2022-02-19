@@ -19,6 +19,13 @@ namespace LemoncNS
             this.name = name;
             this.value = value;
         }
+
+        public AST(ASTType type, string name, params Object[] values)
+        {
+            this.type = type;
+            this.name = name;
+            this.value = values;
+        }
     }
 
     public enum ASTType

@@ -17,7 +17,8 @@ namespace LemoncNS
                 case ASTType.ASSIGNMENT:
                     break;
                 case ASTType.FUNCTION_DECLARATION:
-                    foreach (AST ast in ((ArrayList)structure.value))
+                    Object[] o = (Object[])structure.value;
+                    foreach (AST ast in (ArrayList)o[1])
                     {
                         interpret(ast);
                     }
