@@ -100,8 +100,7 @@ namespace LemoncNS
         private AST parseCondition()
         {
             Object leftHand = eat();
-            eat(TokenType.EQUALS);
-            eat(TokenType.EQUALS);
+            eat(TokenType.CMP_EQUALS);
             Object rightHand = eat();
             return new AST(ASTType.CONDITION, "", leftHand, rightHand);
         }
