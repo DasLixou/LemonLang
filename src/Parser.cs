@@ -18,17 +18,17 @@ namespace LemoncNS
             AST ast = new AST(ASTType.NOOP, "", new ArrayList());
             while (token.type != TokenType.EOF)
             {
-                ((ArrayList)ast.value).Add(parseInstruction());
+                ((ArrayList)ast.value).Add(parseStatement());
             }
             return ast;
         }
 
         // Custom parsing functions
 
-        // Definition instruction: (statement: (assignment | functionCall) ";") | (functionDeclaration | ifBlock)
-        private AST parseInstruction()
+        // Definition statement: (instruction: (assignment | functionCall) ";") | (functionDeclaration | ifBlock)
+        private AST parseStatement()
         {
-            if (taste(TokenType.ID)) // (statement: (assignment | functionCall) ";")
+            if (taste(TokenType.ID)) // (instruction: (assignment | functionCall) ";")
             {
                 string name = eat(TokenType.ID).value;
                 if (taste(TokenType.EQUALS)) // assignment
@@ -94,7 +94,7 @@ namespace LemoncNS
             ArrayList instructions = new ArrayList();
             while (taste(TokenType.RBRACE) == false)
             {
-                instructions.Add(parseInstruction());
+                instructions.Add(parseStatement());
             }
             eat(TokenType.RBRACE);
             return instructions;
