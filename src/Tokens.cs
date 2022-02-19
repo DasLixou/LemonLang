@@ -22,6 +22,8 @@ namespace LemoncNS
         // Types
         INT,
         STRING,
+        // Compares
+        CMP_EQUALS,
         // Symbols
         EQUALS,
         HASHTAG,

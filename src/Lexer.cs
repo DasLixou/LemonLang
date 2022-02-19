@@ -16,9 +16,9 @@ namespace LemoncNS
             this.currentChar = src[(int)this.currentIndex];
         }
 
-        public bool advance()
+        public bool advance(int offset = 1)
         {
-            this.currentIndex += 1;
+            this.currentIndex += (uint)Math.Max(0, offset);
 
             if (currentIndex >= srcLength) return false;
 
@@ -46,6 +46,8 @@ namespace LemoncNS
                     case '"':
                         return lexString();
                     case '=':
+                        if (peek(1) == '=')
+                            return advanceNexts(2, TokenType.CMP_EQUALS);
                         return advanceCurrent(TokenType.EQUALS);
                     case '#':
                         return advanceCurrent(TokenType.HASHTAG);
@@ -152,5 +154,11 @@ namespace LemoncNS
             return token;
         }
 
+        private Token advanceNexts(int offset, TokenType type)
+        {
+            Token token = new Token(src.Substring((int)currentIndex, offset), type);
+            advance(offset);
+            return token;
+        }
     }
 }
