@@ -34,6 +34,7 @@ namespace LemoncNS
         ASSIGNMENT,
         FUNCTION_CALL,
         FUNCTION_DECLARATION,
-        IF_STATEMENT
+        IF_STATEMENT,
+        CONDITION,
     }
 }

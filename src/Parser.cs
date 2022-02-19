@@ -58,10 +58,10 @@ namespace LemoncNS
             {
                 eat(TokenType.KW_IF);
                 eat(TokenType.LPAREN);
-                // TODO: Parse Condition
+                AST condition = parseCondition();
                 eat(TokenType.RPAREN);
                 ArrayList value = parseBlock();
-                return new AST(ASTType.FUNCTION_DECLARATION, "", value);
+                return new AST(ASTType.IF_STATEMENT, "", condition, value);
             }
             else
             {
@@ -95,6 +95,15 @@ namespace LemoncNS
             }
             eat(TokenType.RPAREN);
             return values;
+        }
+
+        private AST parseCondition()
+        {
+            Object leftHand = eat();
+            eat(TokenType.EQUALS);
+            eat(TokenType.EQUALS);
+            Object rightHand = eat();
+            return new AST(ASTType.CONDITION, "", leftHand, rightHand);
         }
 
         private ArrayList parseBlock()
