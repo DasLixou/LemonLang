@@ -100,9 +100,9 @@ namespace LemoncNS
         private AST parseCondition()
         {
             Object leftHand = eat();
-            eat(TokenType.CMP_EQUALS);
+            TokenType compare = eats(TokenType.CMP_EQUALS);
             Object rightHand = eat();
-            return new AST(ASTType.CONDITION, "", leftHand, rightHand);
+            return new AST(ASTType.CONDITION, "", compare, leftHand, rightHand);
         }
 
         private ArrayList parseBlock()
@@ -136,6 +136,15 @@ namespace LemoncNS
             Token result = this.token;
             this.token = lexer.nextToken();
             return result;
+        }
+
+        private TokenType eats(params TokenType[] types)
+        {
+            if (types.Contains(this.token.type))
+            {
+                return eat().type;
+            }
+            throw new Exception("Expected types '" + string.Join(", ", types) + "' but got '" + this.token.type + "'");
         }
 
         private bool taste(TokenType type)
