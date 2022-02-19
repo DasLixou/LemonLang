@@ -85,6 +85,8 @@ namespace LemoncNS
             {
                 case "func":
                     return new Token(value, TokenType.KW_FUNC);
+                case "if":
+                    return new Token(value, TokenType.KW_IF);
             }
             return new Token(value, TokenType.ID);
         }

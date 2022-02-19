@@ -18,6 +18,7 @@ namespace LemoncNS
         // Keywords
         KW_PUBLIC,
         KW_FUNC,
+        KW_IF,
         // Types
         INT,
         STRING,

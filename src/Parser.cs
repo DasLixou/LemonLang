@@ -46,13 +46,22 @@ namespace LemoncNS
                     return new AST(ASTType.FUNCTION_CALL, name, arguments);
                 }
             }
-            else if (taste(TokenType.KW_FUNC)) // (functionDeclaration | ifBlock)
+            else if (taste(TokenType.KW_FUNC)) // functionDeclaration
             {
                 eat(TokenType.KW_FUNC);
                 string name = eat(TokenType.ID).value;
                 ArrayList parameters = parseParameterList();
                 ArrayList value = parseBlock();
                 return new AST(ASTType.FUNCTION_DECLARATION, name, parameters, value);
+            }
+            else if (taste(TokenType.KW_IF)) // ifBlock
+            {
+                eat(TokenType.KW_IF);
+                eat(TokenType.LPAREN);
+                // TODO: Parse Condition
+                eat(TokenType.RPAREN);
+                ArrayList value = parseBlock();
+                return new AST(ASTType.FUNCTION_DECLARATION, "", value);
             }
             else
             {
