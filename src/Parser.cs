@@ -41,20 +41,18 @@ namespace LemoncNS
                 }
                 else // functionCall
                 {
-                    ArrayList parameters = parseList();
+                    ArrayList arguments = parseArgumentList();
                     eat(TokenType.SEMICOLON);
-                    return new AST(ASTType.FUNCTION_CALL, name, parameters);
+                    return new AST(ASTType.FUNCTION_CALL, name, arguments);
                 }
             }
             else if (taste(TokenType.KW_FUNC)) // (functionDeclaration | ifBlock)
             {
                 eat(TokenType.KW_FUNC);
                 string name = eat(TokenType.ID).value;
-                eat(TokenType.LPAREN);
-                // TODO: Parse Parameters
-                eat(TokenType.RPAREN);
+                ArrayList parameters = parseParameterList();
                 ArrayList value = parseBlock();
-                return new AST(ASTType.FUNCTION_DECLARATION, name, value);
+                return new AST(ASTType.FUNCTION_DECLARATION, name, parameters, value);
             }
             else
             {
@@ -62,13 +60,28 @@ namespace LemoncNS
             }
         }
 
-        private ArrayList parseList()
+        private ArrayList parseArgumentList()
         {
             eat(TokenType.LPAREN);
             ArrayList values = new ArrayList();
             while (taste(TokenType.RPAREN) == false)
             {
                 values.Add(eat());
+                if (taste(TokenType.RPAREN) == false) { eat(TokenType.COMMA); }
+            }
+            eat(TokenType.RPAREN);
+            return values;
+        }
+
+        private ArrayList parseParameterList()
+        {
+            eat(TokenType.LPAREN);
+            ArrayList values = new ArrayList();
+            while (taste(TokenType.RPAREN) == false)
+            {
+                Token type = eat(TokenType.ID);
+                Token name = eat(TokenType.ID);
+                values.Add((type, name));
                 if (taste(TokenType.RPAREN) == false) { eat(TokenType.COMMA); }
             }
             eat(TokenType.RPAREN);

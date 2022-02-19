@@ -76,7 +76,7 @@ namespace LemoncNS
         public Token lexID()
         {
             string value = "";
-            while (Char.IsLetter(currentChar))
+            while (Char.IsLetter(currentChar) || Char.IsDigit(currentChar))
             {
                 value += currentChar;
                 advance();
